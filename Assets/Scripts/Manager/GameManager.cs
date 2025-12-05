@@ -1,0 +1,169 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager instance;
+    [Header("UI Panels")]
+    [SerializeField]
+    private GameObject quitPanel;
+    public GameObject StartPanel;
+    public GameObject GameOverPanel;
+    //public GameObject SettingPanel;
+
+
+    [Header("Buttons")]
+    [SerializeField]
+    private GameObject pauseButton;
+    [SerializeField]
+    private GameObject resumeButton;
+    [SerializeField]
+    private GameObject QuitButton;
+    public GameObject StartButton;
+    public GameObject SettingButton;
+    public GameObject RetryButton;
+
+    public TextMeshProUGUI ScoreBoard;
+    //public TextMeshProUGUI LeftPlayer;
+    //public TextMeshProUGUI RightPlayer;
+
+
+    private bool isPaused = false;
+    private int score = 0;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+    void Start()
+    {
+        Time.timeScale = 0f;
+    }
+
+
+    void Update()
+    {
+        UpdateScoreUI();
+    }
+    public void PauseResumeGame()
+
+    {
+
+        if (!isPaused)
+
+        {
+
+            Time.timeScale = 0f;
+
+            pauseButton.SetActive(true);
+
+            resumeButton.SetActive(false);
+
+            isPaused = true;
+
+
+        }
+
+        else
+
+        {
+
+            Time.timeScale = 1f;
+
+            resumeButton.SetActive(true);
+
+            pauseButton.SetActive(false);
+
+            isPaused = false;
+
+
+        }
+
+    }
+    public void StartGame()
+    {
+
+        if (StartPanel != null)
+            StartPanel.SetActive(false);
+
+        if (GameOverPanel != null)
+            GameOverPanel.SetActive(false);
+
+        //if (SettingPanel != null)
+        //    SettingPanel.SetActive(false);
+
+        Time.timeScale = 1f;
+        isPaused = false;
+
+        if (resumeButton != null)
+            resumeButton.SetActive(true);
+
+        if (pauseButton != null)
+            pauseButton.SetActive(false);
+    }
+    public void Home()
+    {
+
+        Time.timeScale = 0f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void Retry()
+    {
+
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    // Show Game Over UI and pause the game
+    public void ShowGameOver()
+    {
+        if (GameOverPanel != null)
+            GameOverPanel.SetActive(true);
+
+        Time.timeScale = 0f;
+        isPaused = true;
+
+        if (resumeButton != null)
+            resumeButton.SetActive(false);
+
+        if (pauseButton != null)
+            pauseButton.SetActive(false);
+    }
+
+
+
+    public void QuitPanel()
+    {
+        PauseResumeGame();
+        quitPanel.SetActive(true);
+    }
+    public void CancelQuit()
+    {
+        PauseResumeGame();
+        isPaused = false;
+        quitPanel.SetActive(false);
+    }
+    public void QuitGame()
+    {
+        quitPanel.SetActive(false);
+        //SoundManager.Instance.Tap();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+    private void UpdateScoreUI()
+    {
+        ScoreBoard.text = score.ToString();
+
+    }
+
+
+    public void AddScore(int value)
+    {
+        score += value;
+
+    }
+}
