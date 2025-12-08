@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -165,6 +166,44 @@ public class GameManager : MonoBehaviour
     public int GetScore()
     {
         return score;
+    }
+    public void ShowScorePopup(string text, Vector3 worldPos)
+    {
+        // Instantiate popup inside World Space canvas
+        TextMeshProUGUI popup = Instantiate(messageUI, mainCanvas.transform);
+
+        popup.text = text;
+
+        // Set world position directly
+        popup.transform.position = worldPos + new Vector3(0, 0.5f, 0); // float slightly above
+
+        StartCoroutine(FloatAndFadePopup(popup));
+    }
+
+    private IEnumerator FloatAndFadePopup(TextMeshProUGUI popup)
+    {
+        float duration = 2f;
+        float elapsed = 0f;
+        Color originalColor = popup.color;
+        Vector3 startPos = popup.transform.position;
+        Vector3 endPos = startPos + new Vector3(0, 1f, 0); // drift upward
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float progress = elapsed / duration;
+
+            // Fade out
+            float alpha = Mathf.Lerp(1f, 0f, progress);
+            popup.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+
+
+            popup.transform.position = Vector3.Lerp(startPos, endPos, progress);
+
+            yield return null;
+        }
+
+        Destroy(popup.gameObject);
     }
 
 }

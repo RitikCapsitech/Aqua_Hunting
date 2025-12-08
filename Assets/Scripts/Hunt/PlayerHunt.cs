@@ -5,7 +5,7 @@ public class PlayerHunt : MonoBehaviour
 {
     private SpriteRenderer sr;
     private bool isFading = false;
-    private float fadeDuration = 2f;
+    private float fadeDuration = 1.2f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,7 +19,7 @@ public class PlayerHunt : MonoBehaviour
     {
         if (collision.CompareTag("Prediator"))
         {
-
+            GameManager.instance.ShowScorePopup("No... It was larger than you!", collision.transform.position);
             StartCoroutine(FadeAndDestroy());
         }
     }

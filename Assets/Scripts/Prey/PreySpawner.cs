@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PreySpawner : MonoBehaviour
 {
+    public static PreySpawner Instance;
     [System.Serializable]
     public class Prey
     {
@@ -24,6 +25,11 @@ public class PreySpawner : MonoBehaviour
     private int currentIndex = 0;
     private bool spawning = false;
 
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         StartCoroutine(SpawnCycle());

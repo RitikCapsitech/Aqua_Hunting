@@ -19,6 +19,7 @@ public class CreatureHunting : MonoBehaviour
         if (collision.CompareTag("Player") && !isFading)
         {
             GameManager.instance.AddScore(1);
+            GameManager.instance.ShowScorePopup("+1", collision.transform.position);
             StartCoroutine(FadeAndDestroy());
         }
     }
