@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private GameObject quitPanel;
     public GameObject StartPanel;
     public GameObject GameOverPanel;
-    //public GameObject SettingPanel;
+
 
 
     [Header("Buttons")]
@@ -25,9 +25,8 @@ public class GameManager : MonoBehaviour
     public GameObject RetryButton;
 
     public TextMeshProUGUI ScoreBoard;
-    //public TextMeshProUGUI LeftPlayer;
-    //public TextMeshProUGUI RightPlayer;
-
+    public TextMeshProUGUI messageUI;
+    public Canvas mainCanvas;
 
     private bool isPaused = false;
     private int score = 0;
@@ -90,9 +89,6 @@ public class GameManager : MonoBehaviour
         if (GameOverPanel != null)
             GameOverPanel.SetActive(false);
 
-        //if (SettingPanel != null)
-        //    SettingPanel.SetActive(false);
-
         Time.timeScale = 1f;
         isPaused = false;
 
@@ -115,7 +111,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // Show Game Over UI and pause the game
+
     public void ShowGameOver()
     {
         if (GameOverPanel != null)
@@ -166,4 +162,9 @@ public class GameManager : MonoBehaviour
         score += value;
 
     }
+    public int GetScore()
+    {
+        return score;
+    }
+
 }

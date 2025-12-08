@@ -5,7 +5,7 @@ public class PlayerHunt : MonoBehaviour
 {
     private SpriteRenderer sr;
     private bool isFading = false;
-    private float fadeDuration = 0.5f;
+    private float fadeDuration = 2f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,6 +19,7 @@ public class PlayerHunt : MonoBehaviour
     {
         if (collision.CompareTag("Prediator"))
         {
+
             StartCoroutine(FadeAndDestroy());
         }
     }
@@ -38,14 +39,13 @@ public class PlayerHunt : MonoBehaviour
             sr.color = new Color(original.r, original.g, original.b, alpha);
 
             yield return null;
+
         }
+        //GameManager.instance.ShowMessage("No... It was larger than You!", transform.position);
         GameManager.instance.ShowGameOver();
 
         Destroy(gameObject);
     }
 
-    void Update()
-    {
 
-    }
 }

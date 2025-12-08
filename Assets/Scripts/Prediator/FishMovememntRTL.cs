@@ -75,6 +75,7 @@ public class FishMovememntRTL : MonoBehaviour
         // Move RIGHT → LEFT
         fish.fishTransform.position += Vector3.left * fish.speed * Time.deltaTime;
 
+
         // When fish goes past maxX (left exit), respawn at right side
         if (fish.fishTransform.position.x < maxX)
         {
@@ -107,4 +108,6 @@ public class FishMovememntRTL : MonoBehaviour
         float randomY = Random.Range(minY, maxY);
         fish.position = new Vector3(startX, randomY, fish.position.z);
     }
+
+
 }

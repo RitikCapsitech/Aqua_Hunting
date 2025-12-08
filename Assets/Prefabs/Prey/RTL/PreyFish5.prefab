@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3202731068606807802}
   - component: {fileID: 4467554060695454507}
   - component: {fileID: 8319476707973101660}
+  - component: {fileID: 1112527860789177494}
   m_Layer: 0
   m_Name: PreyFish5
   m_TagString: Untagged
@@ -192,3 +193,25 @@ PolygonCollider2D:
       - {x: 0.29, y: -0.13499999}
       - {x: 0.45, y: -0.13499999}
   m_UseDelaunayMesh: 0
+--- !u!95 &1112527860789177494
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637690692307522203}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dce9d949a57992c40875163afcdd4164, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
