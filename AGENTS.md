@@ -2,7 +2,7 @@
 - Project name: Aqua_Hunting
 - Unity version: Unity 6000.0.60f1
 - Active game object:
-  - Name: GameManager
+  - Name: LTR
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

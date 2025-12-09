@@ -31,21 +31,20 @@ public class FishSpawner_LTR : MonoBehaviour
     {
         while (true)
         {
-            // pick a random fish type
+
             int index = Random.Range(0, fishPrefabs.Length);
             Fish selected = fishPrefabs[index];
 
-            // create it
+
             Transform fish = Instantiate(selected.prefab);
 
-            // place at random Y position on left side
             float randomY = Random.Range(minY, maxY);
             fish.position = new Vector3(startX, randomY, 0);
 
-            // start moving
+
             StartCoroutine(MoveFish(fish, selected.speed));
 
-            // wait random interval before spawning next fish
+
             yield return new WaitForSeconds(Random.Range(minSpawnDelay, maxSpawnDelay));
         }
     }

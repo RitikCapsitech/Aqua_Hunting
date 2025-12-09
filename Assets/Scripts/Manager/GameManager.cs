@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject quitPanel;
     public GameObject StartPanel;
+    public GameObject SettingPanel;
     public GameObject GameOverPanel;
 
 
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        SoundManager.Instance.Tap();
+        SoundManager.Instance.Background();
         Time.timeScale = 0f;
     }
 
@@ -49,7 +52,7 @@ public class GameManager : MonoBehaviour
     public void PauseResumeGame()
 
     {
-
+        SoundManager.Instance.Tap();
         if (!isPaused)
 
         {
@@ -83,7 +86,9 @@ public class GameManager : MonoBehaviour
     }
     public void StartGame()
     {
-
+        SoundManager.Instance.Tap();
+        SoundManager.Instance.StopMusic();
+        SoundManager.Instance.FishSwim();
         if (StartPanel != null)
             StartPanel.SetActive(false);
 
@@ -99,22 +104,35 @@ public class GameManager : MonoBehaviour
         if (pauseButton != null)
             pauseButton.SetActive(false);
     }
-    public void Home()
-    {
-
-        Time.timeScale = 0f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
     public void Retry()
     {
-
+        SoundManager.Instance.Tap();
+        if (GameOverPanel.activeSelf)
+        {
+            GameOverPanel.SetActive(false);
+        }
         Time.timeScale = 1f;
+        SoundManager.Instance.StopMusic();
+        SoundManager.Instance.FishSwim();
+        FishController.instance.fishSpawn();
+
+    }
+    public void Home()
+    {
+        SoundManager.Instance.Tap();
+
+        Time.timeScale = 0f;
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 
     public void ShowGameOver()
     {
+        SoundManager.Instance.StopMusic();       // stop fish swim
+        SoundManager.Instance.Background();  // play background loop
+
+
         if (GameOverPanel != null)
             GameOverPanel.SetActive(true);
 
@@ -127,22 +145,44 @@ public class GameManager : MonoBehaviour
         if (pauseButton != null)
             pauseButton.SetActive(false);
     }
+    public void SettingPanelOpen()
+    {
+        SoundManager.Instance.Tap();
+        if (StartPanel.activeSelf)
+        {
+            StartPanel.SetActive(false);
+        }
+        SettingPanel.SetActive(true);
+    }
+    public void SettingBack()
+    {
+        SoundManager.Instance.Tap();
+        if (SettingPanel.activeSelf)
+        {
+            SettingPanel.SetActive(false);
+        }
+        StartPanel.SetActive(true);
+    }
 
 
 
     public void QuitPanel()
     {
+        SoundManager.Instance.Tap();
         PauseResumeGame();
         quitPanel.SetActive(true);
     }
     public void CancelQuit()
     {
+        SoundManager.Instance.Tap();
+
         PauseResumeGame();
         isPaused = false;
         quitPanel.SetActive(false);
     }
     public void QuitGame()
     {
+        SoundManager.Instance.Tap();
         quitPanel.SetActive(false);
         //SoundManager.Instance.Tap();
 #if UNITY_EDITOR
@@ -169,12 +209,12 @@ public class GameManager : MonoBehaviour
     }
     public void ShowScorePopup(string text, Vector3 worldPos)
     {
-        // Instantiate popup inside World Space canvas
+
         TextMeshProUGUI popup = Instantiate(messageUI, mainCanvas.transform);
 
         popup.text = text;
 
-        // Set world position directly
+
         popup.transform.position = worldPos + new Vector3(0, 0.5f, 0); // float slightly above
 
         StartCoroutine(FloatAndFadePopup(popup));

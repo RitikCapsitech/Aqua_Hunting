@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class FishController : MonoBehaviour
 {
+    public static FishController instance;
     public Transform fishPrefab;
     private Transform fish;
     private Rigidbody2D rb;
@@ -15,12 +16,20 @@ public class FishController : MonoBehaviour
 
     private int score = 0;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
+    {
+        fishSpawn();
+
+    }
+    public void fishSpawn()
     {
         fish = Instantiate(fishPrefab);
         rb = fish.GetComponent<Rigidbody2D>();
         fishScoreText = fish.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-
 
     }
 

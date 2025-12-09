@@ -18,6 +18,7 @@ public class CreatureHunting : MonoBehaviour
         // check if collided with player
         if (collision.CompareTag("Player") && !isFading)
         {
+            SoundManager.Instance.Prey();
             GameManager.instance.AddScore(1);
             GameManager.instance.ShowScorePopup("+1", collision.transform.position);
             StartCoroutine(FadeAndDestroy());

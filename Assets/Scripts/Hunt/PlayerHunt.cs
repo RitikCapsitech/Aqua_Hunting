@@ -19,6 +19,7 @@ public class PlayerHunt : MonoBehaviour
     {
         if (collision.CompareTag("Prediator"))
         {
+            SoundManager.Instance.PlayerDieSound();
             GameManager.instance.ShowScorePopup("No... It was larger than you!", collision.transform.position);
             StartCoroutine(FadeAndDestroy());
         }

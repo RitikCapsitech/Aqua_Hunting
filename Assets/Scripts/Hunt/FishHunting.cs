@@ -15,6 +15,7 @@ public class FishHunting : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !isFading)
         {
+            SoundManager.Instance.Prey();
             GameManager.instance.AddScore(2);
             GameManager.instance.ShowScorePopup("+2", collision.gameObject.transform.position);
             StartCoroutine(FadeAndDestroy());
