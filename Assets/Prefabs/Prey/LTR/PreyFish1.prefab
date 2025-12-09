@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7536640090089966437}
   m_Layer: 0
   m_Name: PreyFish1
-  m_TagString: Untagged
+  m_TagString: Prey
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

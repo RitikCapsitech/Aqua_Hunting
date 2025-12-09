@@ -7,11 +7,11 @@ public class PlayerHunt : MonoBehaviour
     private bool isFading = false;
     private float fadeDuration = 1.2f;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-
 
     }
 
@@ -20,6 +20,7 @@ public class PlayerHunt : MonoBehaviour
         if (collision.CompareTag("Prediator"))
         {
             SoundManager.Instance.PlayerDieSound();
+
             GameManager.instance.ShowScorePopup("No... It was larger than you!", collision.transform.position);
             StartCoroutine(FadeAndDestroy());
         }

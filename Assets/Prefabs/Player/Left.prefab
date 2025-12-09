@@ -389,6 +389,7 @@ GameObject:
   - component: {fileID: 1516545348330842065}
   - component: {fileID: 3925495533107145013}
   - component: {fileID: 4464658185864383229}
+  - component: {fileID: 4317847860051598138}
   m_Layer: 0
   m_Name: Left
   m_TagString: Player
@@ -575,6 +576,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4317847860051598138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6242419562538314678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04c35549c1e4faf4995e109f90060948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6546858067994007980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -583,17 +596,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8664103896877121587}
     m_Modifications:
+    - target: {fileID: 966601985782053374, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2554184690986698155, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}
       propertyPath: looping
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2554184690986698155, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354415896540428382, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897669474618701932, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521683385093009887, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5671766220290684288, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5671766220290684288, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5691108009259426033, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.82
+      value: -0.605
       objectReference: {fileID: 0}
     - target: {fileID: 5691108009259426033, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.11
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 5691108009259426033, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}
       propertyPath: m_LocalPosition.z
@@ -625,6 +666,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5691108009259426033, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124016460763186117, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8585649807550039280, guid: 224c4574d4d272a4b92df19ede61b338, type: 3}

@@ -9,12 +9,12 @@ public class FishController : MonoBehaviour
     private Rigidbody2D rb;
     private TextMeshProUGUI fishScoreText;
 
+
     public float speed = 3f;
 
 
     public Vector3 scoreOffset = new Vector3(0, 1f, 0);
 
-    private int score = 0;
 
     private void Awake()
     {
@@ -24,12 +24,14 @@ public class FishController : MonoBehaviour
     {
         fishSpawn();
 
+
     }
     public void fishSpawn()
     {
         fish = Instantiate(fishPrefab);
         rb = fish.GetComponent<Rigidbody2D>();
         fishScoreText = fish.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+
 
     }
 
@@ -78,6 +80,8 @@ public class FishController : MonoBehaviour
             fishScoreText.text = GameManager.instance.GetScore().ToString();
         }
     }
+
+
 
 
 }

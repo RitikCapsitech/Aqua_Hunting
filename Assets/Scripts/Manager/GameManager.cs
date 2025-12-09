@@ -21,10 +21,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject resumeButton;
     [SerializeField]
-    private GameObject QuitButton;
-    public GameObject StartButton;
-    public GameObject SettingButton;
-    public GameObject RetryButton;
+    private GameObject MusicOffButton;
+    [SerializeField]
+    private GameObject SoundOffButton;
+
+
+
 
     public TextMeshProUGUI ScoreBoard;
     public TextMeshProUGUI messageUI;
@@ -194,6 +196,14 @@ public class GameManager : MonoBehaviour
     private void UpdateScoreUI()
     {
         ScoreBoard.text = score.ToString();
+
+    }
+    public void SoundOnOff()
+    {
+
+    }
+    public void MusicOnOff()
+    {
 
     }
 

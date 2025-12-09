@@ -2,6 +2,8 @@
 
 public class AnimatedBoatController : MonoBehaviour
 {
+    [SerializeField]
+    private ParticleSystem _particleSystem;
     [Header("Horizontal Movement")]
     public float scrollSpeed = 1.5f;
     public float resetXPosition = -15f;
@@ -18,7 +20,11 @@ public class AnimatedBoatController : MonoBehaviour
 
     // Reference to spawner
     private BoatSpawner spawner;
-
+    private Rigidbody2D rb;
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
     public void Init(BoatSpawner spawnerRef)
     {
         spawner = spawnerRef;
@@ -26,7 +32,12 @@ public class AnimatedBoatController : MonoBehaviour
 
     void Start()
     {
+
         startPosition = transform.position;
+
+
+
+
     }
 
     void Update()
@@ -51,5 +62,14 @@ public class AnimatedBoatController : MonoBehaviour
 
         float tiltAngle = Mathf.Cos(Time.time * tiltSpeed) * maxTiltAngle;
         transform.rotation = Quaternion.Euler(0, 0, tiltAngle);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("ShipBoundary"))
+        {
+
+            _particleSystem.Play();
+        }
+
     }
 }
