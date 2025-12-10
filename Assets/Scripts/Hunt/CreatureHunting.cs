@@ -20,6 +20,8 @@ public class CreatureHunting : MonoBehaviour
         {
             SoundManager.Instance.Prey();
             GameManager.instance.AddScore(1);
+            //FishHealth health = GetComponent<FishHealth>();
+            //health.EatPrey();
             GameManager.instance.ShowScorePopup("+1", collision.transform.position);
             StartCoroutine(FadeAndDestroy());
         }

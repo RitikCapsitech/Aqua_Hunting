@@ -390,6 +390,7 @@ GameObject:
   - component: {fileID: 3925495533107145013}
   - component: {fileID: 4464658185864383229}
   - component: {fileID: 4317847860051598138}
+  - component: {fileID: 4430137295719264013}
   m_Layer: 0
   m_Name: Left
   m_TagString: Player
@@ -554,6 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9a8cdf7b561cb4c9505403912f4795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bonePrefab: {fileID: 4288594711126722891, guid: cfac06df02e4b5f4a931222c2242ea48, type: 3}
 --- !u!95 &4464658185864383229
 Animator:
   serializedVersion: 7
@@ -588,6 +590,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c35549c1e4faf4995e109f90060948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4430137295719264013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6242419562538314678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474b81d368c153e41b26ee784061e97d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHunger: 100
+  currentHunger: 0
+  drainPerSecond: 4
+  eatFillAmount: 15
 --- !u!1001 &6546858067994007980
 PrefabInstance:
   m_ObjectHideFlags: 0

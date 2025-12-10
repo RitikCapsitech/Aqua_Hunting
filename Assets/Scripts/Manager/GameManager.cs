@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        MusicOffButton.SetActive(false);
+        SoundOffButton.SetActive(false);
         SoundManager.Instance.Tap();
         SoundManager.Instance.Background();
         Time.timeScale = 0f;
@@ -55,9 +57,12 @@ public class GameManager : MonoBehaviour
 
     {
         SoundManager.Instance.Tap();
+
         if (!isPaused)
 
         {
+            SoundManager.Instance.ToggleSound();
+            SoundManager.Instance.ToggleMusic();
 
             Time.timeScale = 0f;
 
@@ -73,7 +78,8 @@ public class GameManager : MonoBehaviour
         else
 
         {
-
+            SoundManager.Instance.ToggleSound();
+            SoundManager.Instance.ToggleMusic();
             Time.timeScale = 1f;
 
             resumeButton.SetActive(true);
@@ -89,8 +95,13 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         SoundManager.Instance.Tap();
-        SoundManager.Instance.StopMusic();
-        SoundManager.Instance.FishSwim();
+
+
+        if (SoundManager.Instance.IsMusicOn())
+        {
+            SoundManager.Instance.FishSwim();
+        }
+
         if (StartPanel != null)
             StartPanel.SetActive(false);
 
@@ -114,8 +125,13 @@ public class GameManager : MonoBehaviour
             GameOverPanel.SetActive(false);
         }
         Time.timeScale = 1f;
-        SoundManager.Instance.StopMusic();
-        SoundManager.Instance.FishSwim();
+        //SoundManager.Instance.StopMusic();
+        //SoundManager.Instance.StopMusic();
+
+        if (SoundManager.Instance.IsMusicOn())
+        {
+            SoundManager.Instance.FishSwim();
+        }
         FishController.instance.fishSpawn();
 
     }
@@ -131,8 +147,15 @@ public class GameManager : MonoBehaviour
 
     public void ShowGameOver()
     {
-        SoundManager.Instance.StopMusic();       // stop fish swim
-        SoundManager.Instance.Background();  // play background loop
+
+
+
+
+        if (SoundManager.Instance.IsMusicOn())
+        {
+            SoundManager.Instance.Background();
+        }
+        // play background loop
 
 
         if (GameOverPanel != null)
@@ -165,7 +188,15 @@ public class GameManager : MonoBehaviour
         }
         StartPanel.SetActive(true);
     }
+    public void SettingBackGameplay()
+    {
+        SoundManager.Instance.Tap();
+        if (SettingPanel.activeSelf)
+        {
+            SettingPanel.SetActive(false);
+        }
 
+    }
 
 
     public void QuitPanel()
@@ -198,13 +229,24 @@ public class GameManager : MonoBehaviour
         ScoreBoard.text = score.ToString();
 
     }
-    public void SoundOnOff()
+    public void ToggleMusic()
     {
+        SoundManager.Instance.Tap();
 
+        SoundManager.Instance.ToggleMusic();
+
+
+        MusicOffButton.SetActive(SoundManager.Instance.IsMusicOff());
     }
-    public void MusicOnOff()
-    {
 
+    public void ToggleSound()
+    {
+        SoundManager.Instance.Tap();
+
+        SoundManager.Instance.ToggleSound();
+
+
+        SoundOffButton.SetActive(SoundManager.Instance.IsSoundOff());
     }
 
 

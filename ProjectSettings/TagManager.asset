@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Prediator
+  - Prey
+  - ShipBoundary
   layers:
   - Default
   - TransparentFX

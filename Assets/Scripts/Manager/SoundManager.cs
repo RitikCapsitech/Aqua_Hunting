@@ -1,125 +1,85 @@
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
-
 {
-
     public static SoundManager Instance;
 
-    private AudioSource music_AudioSource;
+    private AudioSource musicSource;
+    private AudioSource sfxSource;
 
-    private AudioSource sound_AudioSource;
-
-    private bool isSFXoff;
+    private bool isMusicOff = false;
+    private bool isSoundOff = false;
 
     [SerializeField] private AudioClip TapClip;
-
-
     [SerializeField] private AudioClip PreyCollect;
-
     [SerializeField] private AudioClip BgClip;
-
-
     [SerializeField] private AudioClip playerDieClip;
     [SerializeField] private AudioClip fishSwimClip;
 
-
-
     private void Awake()
-
     {
-
         if (Instance == null)
-
             Instance = this;
-
         else
-
+        {
             Destroy(gameObject);
+            return;
+        }
 
-        music_AudioSource = gameObject.AddComponent<AudioSource>();
+        DontDestroyOnLoad(gameObject);
 
-        sound_AudioSource = gameObject.AddComponent<AudioSource>();
+        musicSource = gameObject.AddComponent<AudioSource>();
+        sfxSource = gameObject.AddComponent<AudioSource>();
 
-        music_AudioSource.playOnAwake = false;
-
-        sound_AudioSource.playOnAwake = false;
-
+        musicSource.loop = true;
     }
 
-    private void PlayBgSound(AudioClip clip)
-
+    // ---------- MUSIC ----------
+    public void ToggleMusic()
     {
+        isMusicOff = !isMusicOff;
 
-        music_AudioSource.clip = clip;
-
-        music_AudioSource.loop = true;
-
-        music_AudioSource.Play();
-
+        if (isMusicOff)
+            musicSource.Pause();
+        else
+            musicSource.UnPause();
     }
 
-    private void PlaySFxSound(AudioClip clip)
-
+    public void PlayMusic(AudioClip clip)
     {
+        if (isMusicOff) return;
 
-        if (isSFXoff) return;
-
-        sound_AudioSource.clip = clip;
-
-        sound_AudioSource.Play();
-
+        musicSource.clip = clip;
+        musicSource.Play();
     }
 
-    public void BgSoundControl(bool isPlay)
+    public void Background() => PlayMusic(BgClip);
+    public void FishSwim() => PlayMusic(fishSwimClip);
 
+    public bool IsMusicOff() => isMusicOff;
+
+    // ---------- SOUND (SFX) ----------
+    public void ToggleSound()
     {
-
-        if (isPlay) music_AudioSource.Stop();
-
-        else music_AudioSource.Play();
-
+        isSoundOff = !isSoundOff;
     }
 
-    public void SfXControl(bool isPlay)
-
+    public void PlaySound(AudioClip clip)
     {
+        if (isSoundOff) return;
 
-        isSFXoff = !isPlay;
-
+        sfxSource.PlayOneShot(clip);
     }
-    public void FishSwim()
+
+    public void Tap() => PlaySound(TapClip);
+    public void Prey() => PlaySound(PreyCollect);
+    public void PlayerDieSound() => PlaySound(playerDieClip);
+
+    public bool IsSoundOff() => isSoundOff;
+
+    public bool IsMusicOn()
     {
-        PlayBgSound(fishSwimClip);
+        return !isMusicOff;
     }
-    public void Tap()
-    {
-        PlaySFxSound(TapClip);
-    }
-
-
-    public void Prey()
-    {
-        PlaySFxSound(PreyCollect);
-    }
-
-
-
-    public void Background()
-    {
-        PlayBgSound(BgClip);
-    }
-
-    public void PlayerDieSound()
-    {
-        PlaySFxSound(playerDieClip);
-
-    }
-    public void StopMusic()
-    {
-        music_AudioSource.Stop();
-    }
-
-
 
 }
