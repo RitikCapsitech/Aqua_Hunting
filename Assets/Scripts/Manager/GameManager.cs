@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject SettingPanel;
     public GameObject SettingPanelGameplay;
     public GameObject GameOverPanel;
+    public GameObject HelpPanel;
 
 
 
@@ -229,7 +230,14 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
+    public void Help()
+    {
+        HelpPanel.SetActive(true);
+    }
+    public void HelpBack()
+    {
+        HelpPanel.SetActive(false);
+    }
 
     public void QuitPanel()
     {
