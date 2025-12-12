@@ -14,6 +14,8 @@ public class FishController : MonoBehaviour
 
 
     public Vector3 scoreOffset = new Vector3(0, 1f, 0);
+    private Vector2 moveTarget;
+
 
     private Vector2 targetPos;
     private bool isTouching = false;
@@ -64,30 +66,29 @@ public class FishController : MonoBehaviour
     private void HandleMovement()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-        Vector2 dir = new Vector2(x, y).normalized;
-        rb.linearVelocity = dir * speed;
+        if (Input.GetMouseButtonDown(0))
+        {
+            moveTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
 #else
-    if (Input.touchCount > 0)
+    if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
     {
-        Touch touch = Input.GetTouch(0);
-
-        Vector2 touchWorldPos =
-            Camera.main.ScreenToWorldPoint(touch.position);
-
-        Vector2 dir = (touchWorldPos - rb.position).normalized;
-
-        rb.linearVelocity = dir * speed;
-        isTouching = true;
-    }
-    else
-    {
-        rb.linearVelocity = Vector2.zero;
-        isTouching = false;
+        moveTarget = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
     }
 #endif
+
+        Vector2 direction = (moveTarget - rb.position);
+
+        if (direction.magnitude > 0.1f)
+        {
+            rb.linearVelocity = direction.normalized * speed;
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
     }
+
 
 
     private void HandleRotation()
