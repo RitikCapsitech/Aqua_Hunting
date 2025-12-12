@@ -151,6 +151,7 @@ public class GameManager : MonoBehaviour
         {
             FishController.instance.fishSpawn();
         }
+        FindObjectOfType<BombSpawner>().SpawnNextBomb();
 
     }
     public void Home()
@@ -233,15 +234,15 @@ public class GameManager : MonoBehaviour
     public void QuitPanel()
     {
         SoundManager.Instance.Tap();
-        PauseResumeGame();
+        Time.timeScale = 0f;
         quitPanel.SetActive(true);
     }
     public void CancelQuit()
     {
         SoundManager.Instance.Tap();
-
+        Time.timeScale = 1f;
         // Close quit panel and resume game explicitly (avoid toggling)
-        ResumeGame();
+
         quitPanel.SetActive(false);
     }
     public void QuitGame()
