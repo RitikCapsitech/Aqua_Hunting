@@ -33,9 +33,19 @@ public class FishController : MonoBehaviour
     }
     public void fishSpawn()
     {
+        // Destroy existing fish (if any) to avoid duplicates when respawning
+        if (fish != null)
+        {
+            Destroy(fish.gameObject);
+        }
+
         fish = Instantiate(fishPrefab);
         rb = fish.GetComponent<Rigidbody2D>();
         fishScoreText = fish.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+
+        // Reset controller state so the newly spawned fish can move
+        isAlive = true;
+        isTouching = false;
 
 
     }

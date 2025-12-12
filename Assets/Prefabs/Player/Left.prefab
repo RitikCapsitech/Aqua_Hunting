@@ -605,7 +605,6 @@ MonoBehaviour:
   maxHunger: 100
   currentHunger: 0
   drainPerSecond: 4
-  eatFillAmount: 15
 --- !u!1001 &6546858067994007980
 PrefabInstance:
   m_ObjectHideFlags: 0

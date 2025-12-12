@@ -24,7 +24,8 @@ public class FishHunting : MonoBehaviour
             FishHunger hunger = collision.GetComponent<FishHunger>();
             if (hunger != null)
             {
-                hunger.Eat();
+                float newHunger = hunger.Eat(12);
+
             }
 
             GameManager.instance.AddScore(2);

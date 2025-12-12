@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private GameObject quitPanel;
     public GameObject StartPanel;
     public GameObject SettingPanel;
+    public GameObject SettingPanelGameplay;
     public GameObject GameOverPanel;
 
 
@@ -56,41 +57,44 @@ public class GameManager : MonoBehaviour
     public void PauseResumeGame()
 
     {
+
         SoundManager.Instance.Tap();
 
         if (!isPaused)
-
-        {
-            SoundManager.Instance.ToggleSound();
-            SoundManager.Instance.ToggleMusic();
-
-            Time.timeScale = 0f;
-
-            pauseButton.SetActive(true);
-
-            resumeButton.SetActive(false);
-
-            isPaused = true;
-
-
-        }
-
+            PauseGame();
         else
+            ResumeGame();
 
-        {
-            SoundManager.Instance.ToggleSound();
-            SoundManager.Instance.ToggleMusic();
-            Time.timeScale = 1f;
+    }
 
-            resumeButton.SetActive(true);
+    public void PauseGame()
+    {
+        // Pause the game (do not flip user sound settings)
+        Time.timeScale = 0f;
 
-            pauseButton.SetActive(false);
+        // show resume, hide pause
+        if (resumeButton != null) resumeButton.SetActive(true);
+        if (pauseButton != null) pauseButton.SetActive(false);
 
-            isPaused = false;
+        // Temporarily pause audio
+        SoundManager.Instance.PauseAllAudioTemporarily();
 
+        isPaused = true;
+    }
 
-        }
+    public void ResumeGame()
+    {
+        // Resume the game
+        Time.timeScale = 1f;
 
+        // show pause, hide resume
+        if (resumeButton != null) resumeButton.SetActive(false);
+        if (pauseButton != null) pauseButton.SetActive(true);
+
+        // Resume audio without changing user preferences
+        SoundManager.Instance.ResumeAllAudioTemporarily();
+
+        isPaused = false;
     }
     public void StartGame()
     {
@@ -111,11 +115,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
 
+        // When gameplay starts, show the pause button and hide resume
         if (resumeButton != null)
-            resumeButton.SetActive(true);
+            resumeButton.SetActive(false);
 
         if (pauseButton != null)
-            pauseButton.SetActive(false);
+            pauseButton.SetActive(true);
     }
     public void Retry()
     {
@@ -124,15 +129,28 @@ public class GameManager : MonoBehaviour
         {
             GameOverPanel.SetActive(false);
         }
+        // Reset state
         Time.timeScale = 1f;
-        //SoundManager.Instance.StopMusic();
-        //SoundManager.Instance.StopMusic();
+        isPaused = false;
 
+        // Reset score
+        score = 0;
+
+        // Ensure correct buttons
+        if (resumeButton != null) resumeButton.SetActive(false);
+        if (pauseButton != null) pauseButton.SetActive(true);
+
+        // Resume background/music if user wants it
         if (SoundManager.Instance.IsMusicOn())
         {
             SoundManager.Instance.FishSwim();
         }
-        FishController.instance.fishSpawn();
+
+        // Respawn player fish (fishSpawn now destroys previous fish)
+        if (FishController.instance != null)
+        {
+            FishController.instance.fishSpawn();
+        }
 
     }
     public void Home()
@@ -179,6 +197,17 @@ public class GameManager : MonoBehaviour
         }
         SettingPanel.SetActive(true);
     }
+    public void SettingPanelGameplayOpen()
+    {
+        SoundManager.Instance.Tap();
+        Time.timeScale = 0f;
+        isPaused = true;
+        if (StartPanel.activeSelf)
+        {
+            StartPanel.SetActive(false);
+        }
+        SettingPanelGameplay.SetActive(true);
+    }
     public void SettingBack()
     {
         SoundManager.Instance.Tap();
@@ -190,10 +219,12 @@ public class GameManager : MonoBehaviour
     }
     public void SettingBackGameplay()
     {
+        Time.timeScale = 1f;
+        isPaused = false;
         SoundManager.Instance.Tap();
-        if (SettingPanel.activeSelf)
+        if (SettingPanelGameplay.activeSelf)
         {
-            SettingPanel.SetActive(false);
+            SettingPanelGameplay.SetActive(false);
         }
 
     }
@@ -209,8 +240,8 @@ public class GameManager : MonoBehaviour
     {
         SoundManager.Instance.Tap();
 
-        PauseResumeGame();
-        isPaused = false;
+        // Close quit panel and resume game explicitly (avoid toggling)
+        ResumeGame();
         quitPanel.SetActive(false);
     }
     public void QuitGame()

@@ -77,6 +77,25 @@ public class SoundManager : MonoBehaviour
 
     public bool IsSoundOff() => isSoundOff;
 
+    // Pause/Resume audio without changing user settings
+    public void PauseAllAudioTemporarily()
+    {
+        if (musicSource != null && musicSource.isPlaying)
+            musicSource.Pause();
+
+        if (sfxSource != null)
+            sfxSource.Pause();
+    }
+
+    public void ResumeAllAudioTemporarily()
+    {
+        if (musicSource != null && !musicSource.isPlaying && !isMusicOff)
+            musicSource.UnPause();
+
+        if (sfxSource != null)
+            sfxSource.UnPause();
+    }
+
     public bool IsMusicOn()
     {
         return !isMusicOff;
